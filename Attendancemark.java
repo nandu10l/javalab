@@ -14,7 +14,7 @@ public class Attendancemark {
 		Scanner sc= new Scanner(System.in);
 		System.out.println("enter the attendance percentage:");
 		attendancepercentage=sc.nextInt();
-		if(attendancepercentage>90)
+		if(attendancepercentage>=90)
 		{
 			System.out.println("the mark is :10");
 		}

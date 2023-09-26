@@ -1,5 +1,5 @@
 /*
- * File          :Attendancemark.java 
+ * File          :Gradesystem.java 
  * Description   : Find Grade
  * Author        :Nandagopan L
  * Version       : 1.0

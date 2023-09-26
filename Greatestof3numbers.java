@@ -1,6 +1,6 @@
 
 /*
- * File          :Attendancemark.java 
+ * File          :Greatestof3numbers.java 
  * Description   : Find Greatest of 3 numbers
  * Author        :Nandagopan L
  * Version       : 1.0

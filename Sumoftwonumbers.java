@@ -1,3 +1,10 @@
+/*
+ * File          :Sumoftwonumbers.java 
+ * Description   : Find sum of two numbers
+ * Author        :Nandagopan L
+ * Version       : 1.0
+ * Date          : 26/09/2023
+ * */
 package javalab;
 import java.util.Scanner;
 public class Sumoftwonumbers {

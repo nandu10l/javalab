@@ -5,13 +5,37 @@
  * Date			: 10/10/2023
  * */
 package javalab;
-
+import java.util.Scanner;
 public class Methodoverloading {
     public static void main(String [] args ) {
+    	Scanner sc=new Scanner(System.in);
+    	System.out.println("Enter the choice: 1. Rectangle \n 2. Triangle \n 3. Circle");
+    	int choice;
+    	choice =sc.nextInt();
     	Shape shape=new Shape();
-    	Shape.area(15,30); 
-    	Shape.area(12.5f,3.5f);
-    	Shape.area(17.5f);
+    	if(choice==1) {
+    	System.out.println("enter the length:");
+    	int length =sc.nextInt();
+    	System.out.println("enter the breadth:");
+    	int breadth =sc.nextInt();
+    	Shape.area(length,breadth);
+    	}
+    	else if(choice==2) {
+    		System.out.println("enter the height:");
+        	float height =sc.nextFloat();
+        	System.out.println("enter the base:");
+        	float base =sc.nextFloat();
+        	Shape.area(height,base);
+    	}
+    	else if(choice==3) {
+    		System.out.println("enter the radius:");
+        	float radius =sc.nextFloat();
+        	Shape.area(radius);
+    	}
+    	else {
+    		System.out.println("invalid choice");
+    	}
+    		
     	
     	 
        }
@@ -19,6 +43,7 @@ public class Methodoverloading {
     	class Shape{
     	  int length;
     	  int breadth;
+    	  
     	  public static void area(int length, int breadth) {
     		  System.out.println("Area of Rectangle="+(length*breadth));
     	  }

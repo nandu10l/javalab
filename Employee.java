@@ -16,19 +16,19 @@ public class Employee {
 			System.out.println("Enter the age:");
 			int age = sc.nextInt();
 			System.out.println("Enter the Phone Number:");
-			String phNumber = sc.next();
+			String phoneNumber = sc.next();
 			System.out.println("Enter the Address:");
 			String Address = sc.next();
 			System.out.println("Enter the Salary:");
 			double salary = sc.nextDouble();
 			System.out.println("Enter the Specialization:");
 			String specialization= sc.next();
-			Officer officer = new Officer(officerName,age,phNumber,Address,salary,specialization);
+			Officer officer = new Officer(officerName,age,phoneNumber,Address,salary,specialization);
 
 			System.out.print("The officer details are: \n"
 					+ "Name is " + officer.name+"\n"
 					+ "Age is " + officer.age+"\n"
-					+ "Phone Number is " + officer.phNumber+"\n"
+					+ "Phone Number is " + officer.phoneNumber+"\n"
 					+ "Specialization is " + officer.specialization+"\n");
 			officer.printSalary();
 			System.out.println("\nEnter the Manager details.");
@@ -37,26 +37,26 @@ public class Employee {
 			System.out.println("Enter the age:");
 			int mAge = sc.nextInt();
 			System.out.println("Enter the Phone Number:");
-			String mPhNumber = sc.next();
+			String mPhoneNumber = sc.next();
 			System.out.println("Enter the Address:");
 			String mAddress = sc.next();
 			System.out.println("Enter the Salary:");
 			double mSalary = sc.nextDouble();
 			System.out.println("Enter the Department:");
 			String Department= sc.next();
-			Manager manager = new Manager(managerName,mAge,mPhNumber,mAddress,mSalary,Department);
+			Manager manager = new Manager(managerName,mAge,mPhoneNumber,mAddress,mSalary,Department);
 
-			System.out.print("The officer details are: \n"
+			System.out.print("The Manager details are: \n"
 					+ "Name is " + manager.name+"\n"
 					+ "Age is " + manager.age+"\n"
-					+ "Phone Number is " + manager.phNumber+"\n"
-					+ "Specialization is " + manager.department+"\n");
+					+ "Phone Number is " + manager.phoneNumber+"\n"
+					+ "Department is " + manager.department+"\n");
 			manager.printSalary();
 			}
 		
 	}
 		class Employeee{ 
-		String name,address, phNumber;
+		String name,address, phoneNumber;
 		int age;
 		double salary;
 		void printSalary() {
@@ -66,10 +66,10 @@ public class Employee {
 		}
 		class Officer extends Employeee{
 			String specialization;
-			Officer(String name,int age,String phNumber,String address,double salary, String specialization){
+			Officer(String name,int age,String phoneNumber,String address,double salary, String specialization){
 				this.name = name;
 				this.age = age;
-				this.phNumber = phNumber;
+				this.phoneNumber = phoneNumber;
 				this.address = address;
 				this.specialization = specialization;
 				this.salary = salary;
@@ -77,10 +77,10 @@ public class Employee {
 		}
 		class Manager extends Employeee{
 			String department;
-			Manager(String name,int age,String phNumber,String address,double salary, String department){
+			Manager(String name,int age,String phoneNumber,String address,double salary, String department){
 				this.name = name;
 				this.age = age;
-				this.phNumber = phNumber;
+				this.phoneNumber = phoneNumber;
 				this.address = address;
 				this.department = department;
 				this.salary = salary;

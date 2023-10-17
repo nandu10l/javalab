@@ -12,7 +12,7 @@ public class Employee {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter the Officer details.");
 			System.out.println("Enter the Officer name:");
-			String officerName = sc.next();
+			String officerName = sc.nextLine();
 			System.out.println("Enter the age:");
 			int age = sc.nextInt();
 			System.out.println("Enter the Phone Number:");
@@ -22,18 +22,19 @@ public class Employee {
 			System.out.println("Enter the Salary:");
 			double salary = sc.nextDouble();
 			System.out.println("Enter the Specialization:");
-			String specialization= sc.next();
+			String specialization= sc.nextLine();
 			Officer officer = new Officer(officerName,age,phoneNumber,Address,salary,specialization);
 
 			System.out.print("The officer details are: \n"
 					+ "Name is " + officer.name+"\n"
 					+ "Age is " + officer.age+"\n"
+					+ "Address is " + officer.address+"\n"
 					+ "Phone Number is " + officer.phoneNumber+"\n"
 					+ "Specialization is " + officer.specialization+"\n");
 			officer.printSalary();
 			System.out.println("\nEnter the Manager details.");
 			System.out.println("Enter the name of Manager:");
-			String managerName = sc.next();
+			String managerName = sc.nextLine();
 			System.out.println("Enter the age:");
 			int mAge = sc.nextInt();
 			System.out.println("Enter the Phone Number:");
@@ -43,12 +44,13 @@ public class Employee {
 			System.out.println("Enter the Salary:");
 			double mSalary = sc.nextDouble();
 			System.out.println("Enter the Department:");
-			String Department= sc.next();
+			String Department= sc.nextLine();
 			Manager manager = new Manager(managerName,mAge,mPhoneNumber,mAddress,mSalary,Department);
 
 			System.out.print("The Manager details are: \n"
 					+ "Name is " + manager.name+"\n"
 					+ "Age is " + manager.age+"\n"
+					+ "Address is " + manager.address+"\n"
 					+ "Phone Number is " + manager.phoneNumber+"\n"
 					+ "Department is " + manager.department+"\n");
 			manager.printSalary();

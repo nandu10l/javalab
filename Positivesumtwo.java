@@ -18,7 +18,7 @@ public class Positivesumtwo {
 			sum=sum+num;
 			num=sc.nextInt();
 		}while(num>0);
-		System.out.println("Sum of Number is:"+sum);
+		System.out.println("Sum of 2 Numbers is:"+sum);
 		}
 	
 }

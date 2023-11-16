@@ -2,8 +2,9 @@ package Javalab;
 import java.util.Scanner;
 public class CustomException {
 	public static void main (String [] args) {
-		InvalidAmountException amountinvalid =new InvalidAmountException();
 		Scanner sc=new Scanner(System.in);
+		InvalidAmountException amountException =new InvalidAmountException("Invalid Amount");
+		InsufficientFundsException fundsException = new InsufficientFundsException("Insufficient Funds");
 		int choice;
 		System.out.println("Enter the number of Customers:");
 		int noOfCustomers=sc.nextInt();
@@ -22,13 +23,13 @@ public class CustomException {
 			System.out.println("enter your choice:");
 			choice=sc.nextInt();
 			switch (choice) {
-			case 1:
+			case 1:// Display all customer details
 				for(int i=0;i<noOfCustomers;i++) {
 					customer[i].getCustomerDetails();
 				}
 				break;
 				
-			case 2:
+			case 2: // Search for a customer by account number
 				System.out.println("Enter the Account Number:");
 				int searchAccount= sc.nextInt();
 				for(int i=0;i<noOfCustomers;i++) {
@@ -38,7 +39,7 @@ public class CustomException {
 				}
 				break;
 				
-			case 3:
+			case 3:// Deposit Amount
 				System.out.println("Enter the Account Number:");
 				searchAccount= sc.nextInt();
 				try {
@@ -58,26 +59,53 @@ public class CustomException {
 				
 			      }
 				catch(InvalidAmountException e) {
-					System.out.println(e.getMessage);
+					System.out.println(e.getMessage());
 				}
 				break;
 				
-			case 4:
+			case 4:// Withdraw Amount
 				System.out.println("Enter the Account Number:");
 				searchAccount= sc.nextInt();
-				default:
-			
-			
+					try {
+                        System.out.println("Enter the amount to withdraw");
+                        int withdrawAmount = sc.nextInt();
+                        if (withdrawAmount <= 0) {
+                            throw amountException;
+                        } else {
+                            for (int i = 0; i < noOfCustomers; i++) {
+                                if (customer[i].accountNumber == searchAccount) {
+                                    if (withdrawAmount > customer[i].accountBalance) {
+                                        throw fundsException;
+                                    } else {
+                                        customer[i].accountBalance = customer[i].accountBalance - withdrawAmount;
+                                        customer[i].getCustomerDetails();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (InvalidAmountException e) {
+                        System.out.println(e.getMessage());
+                    } catch (InsufficientFundsException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+		    default: // Invalid choice
 			}
 		}
-        while(choice<4);
+        while(choice<5);
+		sc.close();
 	}
 
 }
 class InvalidAmountException extends Exception{
-	public InvalidAmountException() {
-          System.out.println("");
+	 InvalidAmountException(String str) {
+          super(str);
 	}
+}
+class InsufficientFundsException extends Exception {
+    InsufficientFundsException(String str) {
+        super(str);
+    }
 }
 class Customer{
 	int accountNumber;

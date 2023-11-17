@@ -1,12 +1,13 @@
-package Javalab;
+package ExceptionProblems;
 import java.util.Scanner;
 public class CustomException {
 	public static void main (String [] args) {
 		Scanner sc=new Scanner(System.in);
 		InvalidAmountException amountException =new InvalidAmountException("Invalid Amount");
 		InsufficientFundsException fundsException = new InsufficientFundsException("Insufficient Funds");
+		InvalidAccountNumberException accountNoException = new InvalidAccountNumberException("Invalid Account Number"); 
 		int choice;
-		System.out.println("Enter the number of Customers:");
+		System.out.println("How many number of customers do you want to input?");
 		int noOfCustomers=sc.nextInt();
 		Customer [] customer =new Customer[noOfCustomers];
 		for(int i=0;i<noOfCustomers;i++) {
@@ -15,6 +16,8 @@ public class CustomException {
 		}
 		
 		do {
+			System.out.println("  ");
+			System.out.println("***Banking System Application***");
 			System.out.println("1.Display Account Details");
 			System.out.println("2.Search by Account Number");
 			System.out.println("3.Deposit the amount");
@@ -32,11 +35,20 @@ public class CustomException {
 			case 2: // Search for a customer by account number
 				System.out.println("Enter the Account Number:");
 				int searchAccount= sc.nextInt();
+				try {
 				for(int i=0;i<noOfCustomers;i++) {
 					if(customer[i].accountNumber==searchAccount) {
 						customer[i].getCustomerDetails();
 					}
+					else {
+						throw accountNoException;
+					}
 				}
+				}
+				catch(InvalidAccountNumberException e) {
+					System.out.println(e.getMessage());
+				}
+
 				break;
 				
 			case 3:// Deposit Amount
@@ -45,7 +57,7 @@ public class CustomException {
 				try {
 				System.out.println("Enter the Account to Deposit:");
 				int depositAmount=sc.nextInt();
-				if(depositAmount<0) {
+				if(depositAmount<=0) {
 					throw amountException;
 				}
 				else {
@@ -107,6 +119,11 @@ class InsufficientFundsException extends Exception {
         super(str);
     }
 }
+class InvalidAccountNumberException extends Exception{
+	InvalidAccountNumberException(String str) {
+         super(str);
+	}
+}	
 class Customer{
 	int accountNumber;
 	String accountType;
@@ -133,18 +150,4 @@ class Customer{
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

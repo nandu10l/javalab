@@ -1,153 +1,162 @@
 package ExceptionProblems;
 import java.util.Scanner;
-public class CustomException {
-	public static void main (String [] args) {
-		Scanner sc=new Scanner(System.in);
-		InvalidAmountException amountException =new InvalidAmountException("Invalid Amount");
-		InsufficientFundsException fundsException = new InsufficientFundsException("Insufficient Funds");
-		InvalidAccountNumberException accountNoException = new InvalidAccountNumberException("Invalid Account Number"); 
-		int choice;
-		System.out.println("How many number of customers do you want to input?");
-		int noOfCustomers=sc.nextInt();
-		Customer [] customer =new Customer[noOfCustomers];
-		for(int i=0;i<noOfCustomers;i++) {
-			customer[i] = new Customer();
-			customer[i].setCustomerDetails();
-		}
-		
-		do {
-			System.out.println("  ");
-			System.out.println("***Banking System Application***");
-			System.out.println("1.Display Account Details");
-			System.out.println("2.Search by Account Number");
-			System.out.println("3.Deposit the amount");
-			System.out.println("4.Withdraw the Amount");
-			System.out.println("5.Exit");
-			System.out.println("enter your choice:");
-			choice=sc.nextInt();
-			switch (choice) {
-			case 1:// Display all customer details
-				for(int i=0;i<noOfCustomers;i++) {
-					customer[i].getCustomerDetails();
-				}
-				break;
-				
-			case 2: // Search for a customer by account number
-				System.out.println("Enter the Account Number:");
-				int searchAccount= sc.nextInt();
-				try {
-				for(int i=0;i<noOfCustomers;i++) {
-					if(customer[i].accountNumber==searchAccount) {
-						customer[i].getCustomerDetails();
-					}
-					else {
-						throw accountNoException;
-					}
-				}
-				}
-				catch(InvalidAccountNumberException e) {
-					System.out.println(e.getMessage());
-				}
+class InvalidAmountException extends Exception {
+    InvalidAmountException(String str) {
+        super(str);
+    }
+}
+class InsufficientAmountException extends Exception {
+    InsufficientAmountException(String str2) {
+        super(str2);
+    }
+}
 
-				break;
-				
-			case 3:// Deposit Amount
-				System.out.println("Enter the Account Number:");
-				searchAccount= sc.nextInt();
-				try {
-				System.out.println("Enter the Account to Deposit:");
-				int depositAmount=sc.nextInt();
-				if(depositAmount<=0) {
-					throw amountException;
-				}
-				else {
-					for(int i=0;i<noOfCustomers;i++) {
-						if(customer[i].accountNumber==searchAccount) {
-							customer[i].accountBalance=customer[i].accountBalance+depositAmount;
-							customer[i].getCustomerDetails();
-						        }
-					        }
-				     }
-				
-			      }
-				catch(InvalidAmountException e) {
-					System.out.println(e.getMessage());
-				}
-				break;
-				
-			case 4:// Withdraw Amount
-				System.out.println("Enter the Account Number:");
-				searchAccount= sc.nextInt();
-					try {
+public class Banking {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int j;
+        InvalidAmountException amountException = new InvalidAmountException("Invalid amount ");
+        InsufficientAmountException amountException2 = new InsufficientAmountException("Insufficient balance");
+        int limit, i, choice;
+        System.out.println("Enter the number of customers you want to enter");
+        limit = sc.nextInt();
+        Customer[] customer = new Customer[limit];
+        for (i = 0; i < limit; i++) {
+            customer[i] = new Customer();
+            customer[i].setCustomerDetails();
+        }
+        for (i = 0; i < limit; i++) {
+            customer[i].printDetails();
+        }
+        do {
+            System.out.println("\nBanking System Menu:");
+            System.out.println("1. Display account details");
+            System.out.println("2. Search by account number");
+            System.out.println("3. Deposit amount");
+            System.out.println("4. Withdraw amount");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    for (i = 0; i < limit; i++) {
+                        customer[i].printDetails();
+                    }
+                    break;
+                case 2:
+                    int searchAccNo;
+                    System.out.println("Enter the account number you want to search");
+                    searchAccNo = sc.nextInt();
+                    j = 0;
+                    for (i = 0; i < limit; i++) {
+                        if (customer[i].acc_no == searchAccNo) {
+                            customer[i].printDetails();
+                            j++;
+                        }
+                    }
+                    if (j == 0) {
+                        System.out.println("Account not found!!");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Enter the account number you want to deposit amount");
+                    searchAccNo = sc.nextInt();
+                    try {
+                        System.out.println("Enter the amount to deposit");
+                        int depositAmount = sc.nextInt();
+                        if (depositAmount <= 0) {
+                            throw amountException;
+                        } else {
+                            j = 0;
+                            for (i = 0; i < limit; i++) {
+                                if (customer[i].acc_no == searchAccNo) {
+                                    customer[i].balance = customer[i].balance + depositAmount;
+                                    customer[i].printDetails();
+                                    j++;
+                                }
+                            }
+                            if (j == 0) {
+                                System.out.println("Account not found!!");
+                            }
+                        }
+                    } catch (InvalidAmountException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Enter the account number you want to withdraw amount");
+                    searchAccNo = sc.nextInt();
+                    try {
                         System.out.println("Enter the amount to withdraw");
                         int withdrawAmount = sc.nextInt();
                         if (withdrawAmount <= 0) {
                             throw amountException;
                         } else {
-                            for (int i = 0; i < noOfCustomers; i++) {
-                                if (customer[i].accountNumber == searchAccount) {
-                                    if (withdrawAmount > customer[i].accountBalance) {
-                                        throw fundsException;
+                            j = 0;
+                            for (i = 0; i < limit; i++) {
+                                if (customer[i].acc_no == searchAccNo) {
+                                    j++;
+                                    if (withdrawAmount > customer[i].balance) {
+                                        throw amountException2;
                                     } else {
-                                        customer[i].accountBalance = customer[i].accountBalance - withdrawAmount;
-                                        customer[i].getCustomerDetails();
+                                        customer[i].balance = customer[i].balance - withdrawAmount;
+                                        customer[i].printDetails();
                                     }
                                 }
+                            }
+                            if (j == 0) {
+                                System.out.println("Account not found!!");
                             }
                         }
                     } catch (InvalidAmountException e) {
                         System.out.println(e.getMessage());
-                    } catch (InsufficientFundsException e) {
+                    } catch (InsufficientAmountException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
-		    default: // Invalid choice
-			}
-		}
-        while(choice<5);
-		sc.close();
-	}
-
-}
-class InvalidAmountException extends Exception{
-	 InvalidAmountException(String str) {
-          super(str);
-	}
-}
-class InsufficientFundsException extends Exception {
-    InsufficientFundsException(String str) {
-        super(str);
+                case 5:
+                    System.out.println("Exiting the program. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 5);
     }
 }
-class InvalidAccountNumberException extends Exception{
-	InvalidAccountNumberException(String str) {
-         super(str);
-	}
-}	
-class Customer{
-	int accountNumber;
-	String accountType;
-	String customerName;
-	int accountBalance;
-	Scanner sc=new Scanner(System.in);
-	public void setCustomerDetails() {
-		System.out.println("Enter the Account Number:");
-		accountNumber=sc.nextInt();
-		System.out.println("Enter the Account Type:");
-		accountType=sc.next();
-		System.out.println("Enter the Customer Name:");
-		customerName=sc.next();
-		System.out.println("Enter the Account Balance:");
-		accountBalance=sc.nextInt();
-	}
-	public void getCustomerDetails() {
-		System.out.println("The Customer Details are:");
-		System.out.println("Account Number:"+accountNumber);
-		System.out.println("Account Type:"+accountType);
-		System.out.println("Customer Name:"+customerName);
-		System.out.println("Account Balance:"+accountBalance);
-		System.out.println("");
-	}
-	
+
+class Customer {
+    Scanner sc = new Scanner(System.in);
+    int acc_no, balance;
+    String name, accountType;
+
+    // Constructor to initialize customer details
+    public Customer() {
+        this.name = "";
+        this.acc_no = 0;
+        this.accountType = "";
+        this.balance = 0;
+    }
+
+    public void setCustomerDetails() {
+        System.out.println("Enter the name=");
+        name = sc.next();
+        System.out.println("Enter the account number=");
+        acc_no = sc.nextInt();
+        System.out.println("Enter the account type=");
+        accountType = sc.next();
+        System.out.println("Enter the balance=");
+        balance = sc.nextInt();
+    }
+
+    public void printDetails() {
+        System.out.println("________________________________");
+        System.out.println("CUSTOMER DETAILS:");
+        System.out.println("Customer Name=" + name);
+        System.out.println("Account Balance=" + balance);
+        System.out.println("Accountnumber=" + acc_no);
+        System.out.println("Accounttype=" + accountType);
+        System.out.println("________________________________");
+    }
 }
 

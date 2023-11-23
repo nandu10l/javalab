@@ -1,0 +1,43 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileCopy {
+
+    public static void main(String[] args) {
+        String inputFileName = "input.txt";
+        String outputFileName = "output.txt";
+
+        try {
+            // Read content from input.txt
+            String content = readFromFile(inputFileName);
+
+            // Write content to output.txt
+            writeToFile(outputFileName, content);
+
+            System.out.println("File copy successful!");
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static String readFromFile(String fileName) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        }
+        return content.toString();
+    }
+
+    private static void writeToFile(String fileName, String content) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(content);
+        }
+    }
+}

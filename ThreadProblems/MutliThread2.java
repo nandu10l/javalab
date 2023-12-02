@@ -47,16 +47,13 @@ import java.util.Random;
 	    			e.printStackTrace();
 	    		
 	    	}
-	    }
-	    }
-	    
+	      }
+	   }
 	}
-
 	class evenPrintThread extends Thread {
 		NumberManager numberManager;
 		public  evenPrintThread(NumberManager numberManager) {
 			this.numberManager=numberManager;
-			
 		}
 		public void run() {
 			while(true) {
